@@ -1,9 +1,12 @@
 object ParTest{
+  def map2[A,B,C](a:A, b:B)(f: (A,B)=>C): C={
+    f(a,b)
+  }
   def sum(ints: IndexedSeq[Int]): Int = {
-    if (targetSeq.size <= 1) Par.unit(ints.headOption getOrElse 0)
+    if (ints.size <= 1) (ints.headOption getOrElse 0)
     else {
       val (l, r) = ints.splitAt(ints.length / 2)
-      Par.map2(sum(l), sum(r))(_+_)
+      map2(sum(l), sum(r))(_+_)
     }
   }
   def main(args: Array[String]) : Unit = {
